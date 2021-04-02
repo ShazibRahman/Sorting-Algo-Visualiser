@@ -22,7 +22,7 @@ def drawData(data, colorArray):
     canvas.delete("all")
     c_height = 380
     c_width = 600
-    x_width = c_width / (len(data) + 1)
+    x_width = c_width / (len(data) + 3)
     offset = 30
     spacing = 10
     normalizedData = [i / max(data) for i in data]
@@ -42,14 +42,23 @@ def drawData(data, colorArray):
 
 def Generate():
     global data
+    data.clear()
 
     minVal = int(minEntry.get())
     maxVal = int(maxEntry.get())
     size = int(sizeEntry.get())
+    if (maxVal-minVal < size  ):
+        print('differnce of MaxVal and MinVal is smaller than the Size') # needed condition otherwise , result in infinite while loop later
+        return 
+
 
     data = []
     for _ in range(size):
-        data.append(random.randrange(minVal, maxVal+1))
+        v=random.randrange(minVal,minVal+1)
+        while v in data: # needed loop to not add duplicates in the list . 
+            v=random.randrange(minVal,maxVal+1)
+        
+        data.append(v)
 
     drawData(data, ['red' for x in range(len(data))])  # ['red', 'red' ,....]
 
