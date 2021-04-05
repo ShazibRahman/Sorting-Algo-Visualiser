@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+from tkinter import messagebox
 import random
 from bubbleSort import bubble_sort
 from quicksort import quick_sort
@@ -20,8 +21,8 @@ data = []
 
 def drawData(data, colorArray):
     canvas.delete("all")
-    c_height = 380
-    c_width = 600
+    c_height = 450
+    c_width = 800
     x_width = c_width / (len(data) + 3)
     offset = 30
     spacing = 10
@@ -48,11 +49,10 @@ def Generate():
     maxVal = int(maxEntry.get())
     size = int(sizeEntry.get())
     if (maxVal-minVal < size  ):
-        print('differnce of MaxVal and MinVal is smaller than the Size') # needed condition otherwise , result in infinite while loop later
+        messagebox.showwarning('Warning','Differnce of Max Value and Min Value is smaller than the Data Size') # needed condition otherwise , result in infinite while loop later
         return 
 
 
-    data = []
     for _ in range(size):
         v=random.randrange(minVal,minVal+1)
         while v in data: # needed loop to not add duplicates in the list . 
@@ -79,20 +79,18 @@ def StartAlgorithm():
 
     elif algMenu.get() == 'Selection Sort':
         selection(data, drawData, speedScale.get())
-        # bubble_sort(data, drawData, speedScale.get())
 
     elif algMenu.get() == 'Insertion Sort':
         insertionSort(data, drawData, speedScale.get())
-        # bubble_sort(data, drawData, speedScale.get())
 
     drawData(data, ['green' for x in range(len(data))])
 
 
 # frame / base lauout
-UI_frame = Frame(root, width=600, height=200, bg='grey')
+UI_frame = Frame(root, width=800, height=300, bg='grey')
 UI_frame.grid(row=0, column=0, padx=10, pady=5)
 
-canvas = Canvas(root, width=600, height=380, bg='white')
+canvas = Canvas(root, width=800, height=450, bg='white')
 canvas.grid(row=1, column=0, padx=10, pady=5)
 
 # User Interface Area
