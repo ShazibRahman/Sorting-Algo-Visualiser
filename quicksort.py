@@ -1,17 +1,21 @@
 import time
-
+import random 
 
 def partition(data, head, tail, drawData, timeTick):
     border = head
-    pivot = data[tail]
+    piv_in=random.randint(head,tail) #randomize the selection of pivot element
+    data[tail],data[piv_in]=data[piv_in],data[tail]
+    pivot=data[tail]
+
+
 
     drawData(data, getColorArray(len(data), head, tail, border, border))
     time.sleep(timeTick)
 
     for j in range(head, tail):
-        if data[j] < pivot:
+        if data[j] <= pivot:
             drawData(data, getColorArray(
-                len(data), head, tail, border, j, True))
+                len(data), head, tail,border, j, True))
             time.sleep(timeTick)
 
             data[border], data[j] = data[j], data[border]
@@ -40,7 +44,7 @@ def quick_sort(data, head, tail, drawData, timeTick):
         quick_sort(data, partitionIdx+1, tail, drawData, timeTick)
 
 
-def getColorArray(dataLen, head, tail, border, currIdx, isSwaping=False):
+def getColorArray(dataLen, head, tail ,border, currIdx, isSwaping=False):
     colorArray = []
     for i in range(dataLen):
         # base coloring
